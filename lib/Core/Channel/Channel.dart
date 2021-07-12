@@ -10,20 +10,24 @@ class Channel {
     var headers = {
       'X-Auth-Token': authToken,
       'X-User-Id': userId,
+      'Content-Type': 'application/json',
     };
-    final response = await http
-        .post(Uri.parse('https://open.rocket.chat/api/v1/me'),
-            headers: headers,
-            body: json.encode({
-              "message": {"rid": "kd7Mcsu9A4wSqkaNi", "msg": massage}
-            }))
-        .timeout(Duration(seconds: 5));
+    var request = http.Request('POST', Uri.parse('https://open.rocket.chat/api/v1/chat.sendMessage'));
+    request.body = json.encode({
+      "message": {
+        "rid": "kd7Mcsu9A4wSqkaNi",
+        "msg": massage
+      }
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send().timeout(Duration(seconds: 5));
 
     if (response.statusCode == 200) {
       return true;
     } else {
       print(response.statusCode);
-      print(response.body);
+      print(response.reasonPhrase);
       return false;
     }
   }

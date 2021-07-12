@@ -1,3 +1,4 @@
+import 'package:sixty_days_chat/Core/Channel/Channel.dart';
 import 'package:sixty_days_chat/Core/Login/Login.dart';
 import 'package:sixty_days_chat/Core/Me/GetProfile.dart';
 import 'package:test/test.dart';
@@ -34,6 +35,16 @@ void main() {
       print("name ==> " + name.toString());
       print("username ==> " + username.toString());
       print("avatar ==> " + avatar.toString());
+    } catch (error) {
+      print("Error ==> " + error.toString());
+    }
+  });
+  test('test send message', () async {
+    try {
+      bool result = await Channel.sendMassage("hello");
+
+      print("send message result ==> " + result.toString());
+
     } catch (error) {
       print("Error ==> " + error.toString());
     }
