@@ -1,26 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:sixty_days_chat/Core/Channel/Channel.dart';
+import 'package:sixty_days_chat/Core/Channel/Messages.dart';
 import 'package:sixty_days_chat/widgets/ChatItemWidgetGoust.dart';
 import 'package:sixty_days_chat/widgets/ChatItemWidgetPrimary.dart';
 
 
 class ChatListWidget extends StatelessWidget{
   final ScrollController listScrollController = new ScrollController();
+  
   @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
+  Widget build(BuildContext context){
     return Flexible(
-        child: ListView.builder(
-          padding: EdgeInsets.all(10.0),
-          itemBuilder: (context, index) {
-            if(index % 2 == 0){
-              return ChatItemWidgetGuest();
-            }else{
-              return ChatItemWidgetPrimary();
+        child: FutureBuilder<Messages>(
+          future: Channel.messageList(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return ListView.builder(
+                padding: EdgeInsets.all(10.0),
+                itemBuilder: (context, index) {
+                  if(snapshot.data!.messages[index]['u']['username'] == "usertester85"){
+                    return ChatItemWidgetPrimary(time: snapshot.data!.messages[index]['ts'],massage: snapshot.data!.messages[index]['msg']);
+                  }else{
+                    return ChatItemWidgetGuest(username: snapshot.data!.messages[index]['u']['name'],time: snapshot.data!.messages[index]['ts'],massage: snapshot.data!.messages[index]['msg']);
+                  }
+                },
+                itemCount: snapshot.data!.messages.length,
+                reverse: true,
+                controller: listScrollController,
+              );
+            } else if (snapshot.hasError) {
+              return Text("No Message");
             }
+            // By default, show a loading spinner.
+            return CircularProgressIndicator();
           },
-          itemCount: 20,
-          reverse: true,
-          controller: listScrollController,
-        ));
+        ),
+    );
+  }
+  getMassage () async {
+    Messages result = await Channel.messageList();
   }
 }

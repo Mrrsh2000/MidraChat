@@ -69,7 +69,12 @@ class _ConversationPageState extends State<ConversationPage> {
           ],
         ), // Custom app bar for chat screen
         body: Container(
-          color: Palette.chatBackgroundColor,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("Assets/images/background.jpg"),
+              fit: BoxFit.cover,
+            ),
+          ),
           child: Stack(
             children: [
               Column(
