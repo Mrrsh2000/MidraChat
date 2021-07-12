@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sixty_days_chat/Config/Palette.dart';
+import 'package:sixty_days_chat/Core/Channel/Channel.dart';
 
 class InputWidget extends StatelessWidget {
 
@@ -41,7 +42,9 @@ class InputWidget extends StatelessWidget {
               margin: new EdgeInsets.symmetric(horizontal: 8.0),
               child: new IconButton(
                 icon: new Icon(Icons.send),
-                onPressed: () => {},
+                onPressed: () => {
+                  Channel.sendMassage(textEditingController.text)
+                },
                 color: Palette.primaryColor,
               ),
             ),
