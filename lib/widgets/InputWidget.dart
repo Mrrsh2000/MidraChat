@@ -2,34 +2,54 @@ import 'package:flutter/material.dart';
 import 'package:sixty_days_chat/Config/Palette.dart';
 import 'package:sixty_days_chat/Core/Channel/Channel.dart';
 
-class InputWidget extends StatelessWidget {
+class InputWidget extends StatefulWidget {
+  const InputWidget({Key? key}) : super(key: key);
 
-  final TextEditingController textEditingController = new TextEditingController();
+  @override
+  _InputWidgetState createState() => _InputWidgetState();
+}
 
+class _InputWidgetState extends State<InputWidget> {
+  final TextEditingController textEditingController =
+      new TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Row(
         children: <Widget>[
-          Material(
-            child: new Container(
-              margin: new EdgeInsets.symmetric(horizontal: 1.0),
-              child: new IconButton(
-                icon: new Icon(Icons.face),
-                color: Palette.primaryColor, onPressed: () { },
-              ),
+          new Container(
+            decoration: BoxDecoration(
+              color:Colors.teal,
+              borderRadius: BorderRadius.circular(50)
             ),
-            color: Colors.white,
+            margin: new EdgeInsets.symmetric(horizontal: 1.0),
+            child: new IconButton(
+              icon: new Icon(Icons.face),
+              color: Colors.white,
+              onPressed: () {
+
+              },
+            ),
           ),
 
           // Text input
           Flexible(
             child: Container(
+              padding: EdgeInsets.all(18),
+              height: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                  borderRadius: BorderRadius.circular(50),
+              ),
               child: TextField(
-                style: TextStyle(color: Palette.primaryTextColor, fontSize: 15.0),
+                textAlign: TextAlign.right,
+                style: TextStyle(
+                    color: Palette.primaryTextColor,
+                    fontSize: 15.0,
+                    fontFamily: "IRANYekan"),
                 controller: textEditingController,
                 decoration: InputDecoration.collapsed(
-                  hintText: 'Type a message',
+                  hintText: 'یک پیام بنویسید',
                   hintStyle: TextStyle(color: Palette.greyColor),
                 ),
               ),
@@ -37,27 +57,39 @@ class InputWidget extends StatelessWidget {
           ),
 
           // Send Message Button
-          Material(
-            child: new Container(
-              margin: new EdgeInsets.symmetric(horizontal: 8.0),
-              child: new IconButton(
-                icon: new Icon(Icons.send),
-                onPressed: () => {
-                  Channel.sendMassage(textEditingController.text)
+          new Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50), color: Colors.teal),
+            margin: EdgeInsets.symmetric(horizontal: 8.0),
+            child: Transform.rotate(
+              angle: -45,
+              child: IconButton(
+                icon: Icon(
+                  Icons.send_rounded,
+                  color: Colors.white,
+                ),
+                onPressed: () async {
+                  bool result =
+                  await Channel.sendMassage(textEditingController.text);
+                  if (result) {
+                    textEditingController.text = '';
+                  }else{
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text("خطا ! پیام ارسان نشد",style: TextStyle(fontFamily: "IRANYekan"),),
+                    ));
+                  }
+                  setState(()  {
+
+                  });
                 },
                 color: Palette.primaryColor,
               ),
             ),
-            color: Colors.white,
           ),
         ],
       ),
       width: double.infinity,
       height: 50.0,
-      decoration: new BoxDecoration(
-          border: new Border(
-              top: new BorderSide(color: Palette.greyColor, width: 0.5)),
-          color: Colors.white),
     );
   }
 }

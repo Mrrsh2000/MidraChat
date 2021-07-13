@@ -21,7 +21,7 @@ class ChatListWidget extends StatelessWidget{
                   if(snapshot.data!.messages[index]['u']['username'] == "usertester85"){
                     return ChatItemWidgetPrimary(time: snapshot.data!.messages[index]['ts'],massage: snapshot.data!.messages[index]['msg']);
                   }else{
-                    return ChatItemWidgetGuest(username: snapshot.data!.messages[index]['u']['name'],time: snapshot.data!.messages[index]['ts'],massage: snapshot.data!.messages[index]['msg']);
+                    return ChatItemWidgetGuest(userId: snapshot.data!.messages[index]['u']['_id'],name: snapshot.data!.messages[index]['u']['name'],time: snapshot.data!.messages[index]['ts'],massage: snapshot.data!.messages[index]['msg']);
                   }
                 },
                 itemCount: snapshot.data!.messages.length,
