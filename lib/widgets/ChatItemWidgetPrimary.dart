@@ -16,36 +16,29 @@ class ChatItemWidgetPrimary extends StatefulWidget {
 }
 
 class _ChatItemWidgetPrimaryState extends State<ChatItemWidgetPrimary> {
-  String avatar = "";
-
-  getName() async {
-    bool result = await GetProfile.profile();
-    if (result) {
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      var getAvatar = prefs.get('avatar');
-      avatar = getAvatar.toString();
-    } else {
-      print(result);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    setState(() {
-      getName();
-    });
-    return Container(
-      child: Column(children: [
-        Row(
+    return Expanded(
+      child: Container(
+        child: Row(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Container(
               alignment: Alignment.centerRight,
               child: Row(children: [
-                Text(
-                  widget.massage.toString(),
-                  style: TextStyle(
-                      color: Palette.selfMessageColor, fontFamily: "IRANYekan"),
+                SizedBox(
+                  child: Expanded(
+                    child: Column(
+                      children: [
+                        Text(widget.massage.toString(),
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.justify,
+                            style: TextStyle(
+                                color: Palette.selfMessageColor,
+                                fontFamily: "IRANYekan")),
+                      ],
+                    ),
+                  ),
                 ),
                 Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                   Container(
@@ -62,7 +55,7 @@ class _ChatItemWidgetPrimaryState extends State<ChatItemWidgetPrimary> {
                   )
                 ]),
                 Padding(
-                  padding: const EdgeInsets.only(left: 4, right: 5),
+                  padding: EdgeInsets.only(left: 4, right: 5),
                   child: Icon(
                     Icons.theater_comedy,
                     color: Colors.black54,
@@ -81,26 +74,11 @@ class _ChatItemWidgetPrimaryState extends State<ChatItemWidgetPrimary> {
               ),
               margin: EdgeInsets.only(right: 5.0),
             ),
-            // Container(
-            //   decoration: BoxDecoration(
-            //     color: Colors.blueAccent,
-            //     borderRadius: BorderRadius.only(
-            //       topLeft: Radius.circular(15),
-            //       topRight: Radius.circular(15),
-            //       bottomRight: Radius.circular(15),
-            //     ),
-            //   ),
-            //   child: CircleAvatar(
-            //     backgroundColor: Colors.blueAccent,
-            //     backgroundImage: Image.network(avatar).image,
-            //   ),
-            // ),
           ],
-          mainAxisAlignment:
-              MainAxisAlignment.end, // aligns the chatitem to right end
+          mainAxisAlignment: MainAxisAlignment.end,
         ),
-      ]),
-      margin: EdgeInsets.only(bottom: 10.0),
+        margin: EdgeInsets.only(bottom: 10.0),
+      ),
     );
   }
 }

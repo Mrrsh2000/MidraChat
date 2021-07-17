@@ -10,7 +10,7 @@ class ChatListWidget extends StatelessWidget{
   
   @override
   Widget build(BuildContext context){
-    return Flexible(
+    return Expanded(
         child: FutureBuilder<Messages>(
           future: Channel.messageList(),
           builder: (context, snapshot) {
@@ -36,8 +36,5 @@ class ChatListWidget extends StatelessWidget{
           },
         ),
     );
-  }
-  getMassage () async {
-    Messages result = await Channel.messageList();
   }
 }

@@ -16,51 +16,72 @@ class _InputWidgetState extends State<InputWidget> {
   Widget build(BuildContext context) {
     return Container(
       child: Row(
-        children: <Widget>[
-          new Container(
-            decoration: BoxDecoration(
-              color:Colors.teal,
-              borderRadius: BorderRadius.circular(50)
-            ),
-            margin: new EdgeInsets.symmetric(horizontal: 1.0),
-            child: new IconButton(
-              icon: new Icon(Icons.face),
-              color: Colors.white,
-              onPressed: () {
-
-              },
-            ),
-          ),
-
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children:[
           // Text input
           Flexible(
             child: Container(
-              padding: EdgeInsets.all(18),
-              height: double.infinity,
               decoration: BoxDecoration(
                 color: Colors.white,
-                  borderRadius: BorderRadius.circular(50),
+                  borderRadius: BorderRadius.circular(25),
               ),
-              child: TextField(
-                textAlign: TextAlign.right,
-                style: TextStyle(
-                    color: Palette.primaryTextColor,
-                    fontSize: 15.0,
-                    fontFamily: "IRANYekan"),
-                controller: textEditingController,
-                decoration: InputDecoration.collapsed(
-                  hintText: 'یک پیام بنویسید',
-                  hintStyle: TextStyle(color: Palette.greyColor),
-                ),
+              margin: EdgeInsets.symmetric(horizontal: 5.0,vertical: 5),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Row(
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.face,),
+                        color: Colors.teal,
+                        onPressed: () {
+
+                        },
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.attach_file_rounded,),
+                        color: Colors.teal,
+                        onPressed: () {
+
+                        },
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.camera_alt_rounded,),
+                        color: Colors.teal,
+                        onPressed: () {
+
+                        },
+                      ),
+                    ],
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.all(15.0),
+                      child: TextField(
+                        keyboardType: TextInputType.multiline,
+                        maxLines: null,
+                        textAlign: TextAlign.right,
+                        style: TextStyle(
+                            color: Palette.primaryTextColor,
+                            fontSize: 15.0,
+                            fontFamily: "IRANYekan"),
+                        controller: textEditingController,
+                        decoration: InputDecoration.collapsed(
+                          hintText: 'یک پیام بنویسید',
+                          hintStyle: TextStyle(color: Palette.greyColor),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
 
-          // Send Message Button
-          new Container(
+         Container(
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50), color: Colors.teal),
-            margin: EdgeInsets.symmetric(horizontal: 8.0),
+                borderRadius: BorderRadius.circular(25), color: Colors.teal),
+            margin: EdgeInsets.symmetric(horizontal: 5.0,vertical: 5),
             child: Transform.rotate(
               angle: -45,
               child: IconButton(
@@ -78,9 +99,6 @@ class _InputWidgetState extends State<InputWidget> {
                       content: Text("خطا ! پیام ارسان نشد",style: TextStyle(fontFamily: "IRANYekan"),),
                     ));
                   }
-                  setState(()  {
-
-                  });
                 },
                 color: Palette.primaryColor,
               ),
@@ -89,7 +107,6 @@ class _InputWidgetState extends State<InputWidget> {
         ],
       ),
       width: double.infinity,
-      height: 50.0,
     );
   }
 }
