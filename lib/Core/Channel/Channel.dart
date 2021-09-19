@@ -16,7 +16,7 @@ class Channel {
     var request = http.Request('POST', Uri.parse('https://open.rocket.chat/api/v1/chat.sendMessage'));
     request.body = json.encode({
       "message": {
-        "rid": "kd7Mcsu9A4wSqkaNi",
+        "rid": "4EGRDu9Jcw3HJDpPb",
         "msg": massage
       }
     });
@@ -42,7 +42,7 @@ class Channel {
     };
 
     final response = await http.get(
-        Uri.parse('https://open.rocket.chat/api/v1/channels.messages?roomId=kd7Mcsu9A4wSqkaNi'),
+        Uri.parse('https://open.rocket.chat/api/v1/channels.messages?roomId=4EGRDu9Jcw3HJDpPb'),
         headers: headers
     ).timeout(Duration(seconds: 10));
 

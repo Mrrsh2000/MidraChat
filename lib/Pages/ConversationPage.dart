@@ -71,7 +71,7 @@ class _ConversationPageState extends State<ConversationPage> {
         body: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("Assets/images/background.jpg"),
+              image: AssetImage("assets/images/background.jpg"),
               fit: BoxFit.cover,
             ),
           ),
